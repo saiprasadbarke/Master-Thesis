@@ -1,0 +1,267 @@
+
+
+\begin{tabularx}{\textwidth}{
+    |>{\footnotesize}l|>{\footnotesize}c|>{\footnotesize}c|>{\footnotesize}c|
+    }
+
+\hline
+\rowcolor{bgcolor}
+\textbf{Approach}
+    & Average
+    & Average
+    & Average
+    \\
+\rowcolor{bgcolor}
+    & AUSE$\downarrow$ & Time(mS)$\downarrow$ & Mem(MB)$\downarrow$
+
+    \\
+\hline
+
+\hline
+\rowcolor{bgcolor}\textbf{Baselines}   &&&\\
+\hline
+MVSNet $(V=2, D=256)$ \(\star\)  &0.28&67.24&7276
+
+    \\
+\hline
+MVSNet $(V=2, D=128)$  &0.26&65.2&5302
+
+    \\
+\hline
+MVSNet $(V=2, D=128)$ $H=480, W=640$ \({\star}\)     &0.27&51.07&3663
+
+    \\
+\hline
+RobustMVD $(V=4 , B=4)$   &&&
+
+    \\
+\hline
+RobustMVD $(V=2 , B=1)$&0.28&30.24&2125
+
+    \\
+\hline
+MVSNet-pl wrapped   &0.36&505.91&2461
+
+    \\
+\hline
+Vis-MVSNet wrapped   &0.33&104.73&7827
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{Baseline \(\star\)}   &&&
+
+    \\
+\hline
+\hline
+MVSNet $(V=2, D=128)$ \(\star\)   &0.27&50.78&3654
+
+    \\
+\hline
+RobustMVD $(V=2 , B=1)$ \(\star\)  &0.28&25.23&1136
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{Feature Extractor}&&&
+
+    \\
+\hline
+\hline
+{\mvsn} Base + DispNet FE \(\lozenge\) &0.26&128.84&9601
+
+    \\
+\hline
+{\mvsn} Base + FPN FE  &0.28&48.97&6716
+
+    \\
+\hline
+{\mvsn} Base + UNet FE  \(\star\) &0.25&71.19&7518
+
+    \\
+\hline
+{\mvsn} Base + DINO ViT FE \((\frac{H}{2}, \frac{W}{2})\) \(\star\)  &0.37&726.56&9970
+
+    \\
+\hline
+{\mvsn} Base + DINO ViT FE \((H,W)\) \(\star\)  &0.29&2986.24&10174
+
+    \\
+\hline
+{\rmvd} base + {\mvsn} FE ($V=4 , B=4$)  &0.26&48.44&1797
+
+    \\
+\hline
+{\rmvd} base + {\mvsn} FE ($V=2 , B=1$) &0.27&46.10&1786
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{Correlation Layer}  &&&
+
+    \\
+\hline
+\hline
+{\mvsn} Base + Groupwise ($G=4$) with Learned Fusion  &0.27&34.23&3153
+
+    \\
+\hline
+{\mvsn} Base + Groupwise ($G=4$) +  &&&
+
+    \\
+WarpOnly with Learned Fusion  &0.28&84.28&8527
+
+    \\
+\hline
+{\rmvd} Base + Groupwise $(G=4)$ with Learned Fusion &&&
+
+    \\
+and 2D cost regularization (600k iterations) \(\star\) &0.26&64.1&7374
+
+    \\
+\hline
+{\rmvd} Base + Groupwise $(G=4)$ with Learned Fusion  &&&
+
+    \\
+and 2D cost regularization (1000k iterations) \(\star\) &0.27&61.38&7370
+
+    \\
+\hline
+{\rmvd} Base + Groupwise $(G=4)$ and Full Corr  &&&
+
+    \\
+with Learned Fusion and 3D cost regularization \(\star\)  &0.35&127.32&7504
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{Fusion Method}  &&&
+
+    \\
+\hline
+\hline
+{\mvsn} base with Learned Fusion  &0.39&37.21&5732
+
+    \\
+\hline
+{\mvsn} base with Average Fusion  &0.37&35.82&4322
+
+    \\
+\hline
+{\rmvd} base with Average Fusion   &0.26&45.53&1783
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{Cost Volume Regularization}  &&&
+
+    \\
+\hline
+\hline
+{\mvsn} + DispNet 2D Decoder  &0.29&627.45&5491
+
+    \\
+\hline
+{\mvsn} + 3D UNet Stacked Hourglass  &0.25&45.54&5373
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{Coarse-To-Fine Design}  &&&
+
+    \\
+\hline
+\hline
+{\mvsn} cascade with FPN FE  &0.88&168.31&2101
+
+    \\
+\hline
+{\mvsn} cascade with UNet FE   &0.86&154.31&2044
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{Data Properties}   &&&
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{\textit{Number of views and view selection strategy}}   &&&
+
+    \\
+\hline
+\hline
+{\mvsn} Base $(V=4,D=128)$ Best Matching Views &0.26&38.58&5445
+
+    \\
+\hline
+{\mvsn} Base $(V=2,D=128)$    &&&
+
+    \\
+All Combinations + Random Selection  &0.27&76.52&5427
+
+    \\
+\hline
+{\rmvd} Base $(V=4,D=256)$ Best Matching Views &0.27&31.61&2139
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{\textit{Use of Scale Augmentation}}   &&&
+
+    \\
+\hline
+\hline
+{\mvsn} Base $(V=2,D=128)$ with Scale Augmentation   &0.26&38.58&5445
+
+    \\
+\hline
+{\rmvd} Base without Scale Augmentation  &&&
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{Training Hyperparameters}   &&&
+
+    \\
+\hline
+\hline
+\textbf{\textit{Use of Normalized Features}}   &&&
+
+    \\
+\hline
+{\mvsn} Base (Warp Only) with Normalized Features   &0.29&68.58&5466
+
+    \\
+\hline
+{\mvsn} Base + Groupwise ($G=4$) with   &&&
+
+    \\
+
+Normalized Features and Learned Fusion   &0.27&35.30&3254
+
+    \\
+\hline
+{\rmvd} Base without Normalized Features   &0.27&31.47&2140
+
+    \\
+\hline
+\hline
+\rowcolor{bgcolor}\textbf{\textit{Number of groups is {\gwc}}}   &&&
+
+    \\
+\hline
+\hline
+{\mvsn} Base + Groupwise ($G=32$)   &0.27&46.72&7505
+
+    \\
+\hline
+\hline
+\caption[AUSE, Inference Time and Memory Consumption]{\textbf{AUSE, Inference Time and Memory Consumption}. This table compares the average AUSE, average inference time, and average memory consumption (model + data) to evaluate the different configurations on the test datasets. \textbf{a)}The average AUSE is mostly in the same range for all configurations except for the cascade models and {\vmn}, which also uses cascade updates or coarse-to-fine design. It is the extra visibility weights that give it a lower uncertainty compared to the remaining two models. \textbf{b)} We can see that inference times and memory requirements for the models augmented with the DINO ViT are significantly larger compared to the rest of the configurations, and \textbf{c)} The memory requirements for the {\mvsn} coarse-to-fine models and for {\rmvd} with average fusion are the lowest.}
+\label{tab:ause-mem-time}
+
+
+\end{tabularx}
+
+
+

@@ -1,0 +1,57 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[htbp]
+\scriptsize
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\def\arraystretch{1.5}
+\begin{tabular}{|l|c|c|c|c|c|c|c|}
+\hline
+\rowcolor{bgcolor}
+\textbf{Operation}                     & \textbf{Kernel} & \textbf{Stride} & \textbf{Ch I/O} & \textbf{InpRes} & \textbf{OutRes} & \textbf{Input}     & \textbf{Output} \\ \hline
+\hline
+\rowcolor{bgcolor}
+\textbf{(a) Hourglass 1} &                 &                 &                 &                 &                 &                    &                 \\ \hline
+3D convolution + BatchNorm + ReLU                            & 3×3×3             & 1               & 32/8         & $D$×192×144           & $D$×192×144           & Fused cost volume $\textbf{C}$              & $3Dconv^a_0$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 2               & 8/16         & $D$×192×144           & $D/2$×96×72           & $3Dconv^a_0$             & $3Dconv^a_1$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 1               & 16/16         & $D/2$×96×72           & $D/2$×96×72           & $3Dconv^a_1$             & $3Dconv^a_2$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 2               & 16/32         & $D/2$×96×72           & $D/4$×48×36           & $3Dconv^a_2$             & $3Dconv^a_3$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 1               & 32/32         & $D/4$×48×36           & $D/4$×48×36            & $3Dconv^a_3$             & $3Dconv^a_4$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 2               & 32/64        & $D/4$×48×36            & $D/8$×24×18             & $3Dconv^a_4$            & $3Dconv^a_5$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 1               & 64/64       & $D/8$×24×18             & $D/8$×24×18            & $3Dconv^a_5$             & $3Dconv^a_6$          \\ \hline
+Transposed 3D convolution + ReLU                  & 3×3×3             & 2               & 64/32          & $D/8$×24×18            & $D/4$×48×36            & $3Dconv^a_6$             & $3Dconv^a_7$          \\ \hline
+Transposed 3D convolution + ReLU                 & 3×3×3             & 2               & 32/16        & $D/4$×48×36            & $D/2$×96×72           & $3Dconv^a_7+3Dconv^a_4$             & $3Dconv^a_9$         \\ \hline
+Transposed 3D convolution + ReLU                 & 3×3×3             & 2               & 16/8        & $D/2$×96×72           & $D$×192×144           & $3Dconv^a_9+3Dconv^a_2$ & $3Dconv^a_11$          \\ \hline
+3D convolution                             & 3×3×3             & 1               & 8/1           & $D$×192×144           & $D$×192×144           & $3Dconv^a_11+3Dconv^a_0$             & $prob_a$           \\ \hline
+\rowcolor{bgcolor}
+\textbf{(b) Hourglass 2} &                 &                 &                 &                 &                 &                    &                 \\ \hline
+3D convolution + BatchNorm + ReLU                            & 3×3×3             & 1               & 32/8         & $D$×192×144           & $D$×192×144           & $3Dconv^a_11+3Dconv^a_0$             & $3Dconv^b_0$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 2               & 8/16         & $D$×192×144           & $D/2$×96×72           & $3Dconv^b_0$             & $3Dconv^b_1$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 1               & 16/16         & $D/2$×96×72           & $D/2$×96×72           & $3Dconv^b_1$             & $3Dconv^b_2$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 2               & 16/32         & $D/2$×96×72           & $D/4$×48×36           & $3Dconv^b_2$             & $3Dconv^b_3$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 1               & 32/32         & $D/4$×48×36           & $D/4$×48×36            & $3Dconv^b_3$             & $3Dconv^b_4$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 2               & 32/64        & $D/4$×48×36            & $D/8$×24×18             & $3Dconv^b_4$            & $3Dconv^b_5$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 1               & 64/64       & $D/8$×24×18             & $D/8$×24×18            & $3Dconv^b_5$             & $3Dconv^b_6$          \\ \hline
+Transposed 3D convolution + ReLU                  & 3×3×3             & 2               & 64/32          & $D/8$×24×18            & $D/4$×48×36            & $3Dconv^b_6$             & $3Dconv^b_7$          \\ \hline
+Transposed 3D convolution + ReLU                 & 3×3×3             & 2               & 32/16        & $D/4$×48×36            & $D/2$×96×72           & $3Dconv^b_7+3Dconv^b_4$             & $3Dconv^b_9$         \\ \hline
+Transposed 3D convolution + ReLU                 & 3×3×3             & 2               & 16/8        & $D/2$×96×72           & $D$×192×144           & $3Dconv^b_9+3Dconv^b_2$ & $3Dconv^b_11$          \\ \hline
+3D convolution                             & 3×3×3             & 1               & 8/1           & $D$×192×144           & $D$×192×144           & $3Dconv^b_11+3Dconv^b_0$             & $prob_b$           \\ \hline
+\rowcolor{bgcolor}
+\textbf{(c) Hourglass 3} &                 &                 &                 &                 &                 &                    &                 \\ \hline
+3D convolution + BatchNorm + ReLU                            & 3×3×3             & 1               & 32/8         & $D$×192×144           & $D$×192×144           & $3Dconv^b_11+3Dconv^b_0$              & $3Dconv^c_0$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 2               & 8/16         & $D$×192×144           & $D/2$×96×72           & $3Dconv^c_0$             & $3Dconv^c_1$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 1               & 16/16         & $D/2$×96×72           & $D/2$×96×72           & $3Dconv^c_1$             & $3Dconv^c_2$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 2               & 16/32         & $D/2$×96×72           & $D/4$×48×36           & $3Dconv^c_2$             & $3Dconv^c_3$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 1               & 32/32         & $D/4$×48×36           & $D/4$×48×36            & $3Dconv^c_3$             & $3Dconv^c_4$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 2               & 32/64        & $D/4$×48×36            & $D/8$×24×18             & $3Dconv^c_4$            & $3Dconv^c_5$          \\ \hline
+3D convolution + BatchNorm + ReLU                             & 3×3×3             & 1               & 64/64       & $D/8$×24×18             & $D/8$×24×18            & $3Dconv^c_5$             & $3Dconv^c_6$          \\ \hline
+Transposed 3D convolution + ReLU                  & 3×3×3             & 2               & 64/32          & $D/8$×24×18            & $D/4$×48×36            & $3Dconv^c_6$             & $3Dconv^c_7$          \\ \hline
+Transposed 3D convolution + ReLU                 & 3×3×3             & 2               & 32/16        & $D/4$×48×36            & $D/2$×96×72           & $3Dconv^c_7+3Dconv^c_4$             & $3Dconv^c_9$         \\ \hline
+Transposed 3D convolution + ReLU                 & 3×3×3             & 2               & 16/8        & $D/2$×96×72           & $D$×192×144           & $3Dconv^c_9+3Dconv^c_2$ & $3Dconv^c_11$          \\ \hline
+3D convolution                             & 3×3×3             & 1               & 8/1           & $D$×192×144           & $D$×192×144           & $3Dconv^c_11+3Dconv^c_0$             & $prob_c$           \\ \hline
+\end{tabular}
+\end{adjustbox}
+\caption[Architecture of the 3D stacked hourglass cost volume regularization module.]{Architecture of the 3D stacked hourglass cost volume regularization module. A depth map is regressed at every level of the stacked hourglass from the probability volumes \(prob_a, prob_b, prob_c\). These depth maps are then used to compute the combined loss with weights \(\lambda_i\) = $[\frac{1}{2}, 1, 2]$.
+}
+\label{tab:arch-stacked}
+\end{table}

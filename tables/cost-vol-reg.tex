@@ -1,0 +1,164 @@
+%\begin{table*}[t!]
+\begin{table}[ht!]
+\footnotesize
+\centering
+\def\arraystretch{1.5}
+%\resizebox{\columnwidth}{!}{ % scale to columnwidth
+%\resizebox*{\textwidth}{!}{
+\begin{adjustbox}{width=1\textwidth}
+\setlength{\tabcolsep}{1mm}
+\begin{tabular}{|l
+|c c
+|c c
+|c c
+|c c
+|c c
+||c |c |c |c |c
+|}
+
+\hline
+
+    \textbf{Cost Vol Regularization}
+    & \multicolumn{2}{c|}{\textbf{\kittishort{}}}
+    & \multicolumn{2}{c|}{\textbf{\dtushort{}{}}}
+    & \multicolumn{2}{c|}{\textbf{\scannetshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\tanksandtemplesshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\ethdshort{}}}
+    & \multicolumn{5}{c|}{\textbf{Average}}
+    \\
+\hline
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$ & AUSE$ \downarrow$ & time $\downarrow$ & memory $\downarrow$
+    \\
+    &&&&&&&&&&&&&&(mSec)&(MB)\\
+    \hline
+    \hline
+    \textbf{a) {\mvsn} Base}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\hline
+    \rowcolor{bgcolor}
+    \textbf{a1) Default Training and}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\rowcolor{bgcolor}
+    \textbf{    Evaluation Input sizes}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\hdashline
+\rowcolor{bgcolor}
+	MVSNet Base $(V=2, D=128)$
+	& 11.44
+	& 40.50
+	& 2.95
+	& 81.26
+	& 9.80
+	& 32.31
+	& 9.31
+	& 80.24
+	& 31.45
+	& 38.51
+	& 12.99
+	& 55.56
+        & 0.26
+        & 65.2
+        & \bestresult{5302}
+	
+	\\ 
+
+\hline
+	DispNet 2D Decoder 
+	& \bestresult{7.79}
+	& \bestresult{48.92}
+	& 2.83
+	& 83.22
+	& \bestresult{8.20}
+	& \bestresult{36.84}
+	& \bestresult{5.75}
+	& \bestresult{83.76}
+	& \bestresult{19.26}
+	& \bestresult{40.63}
+	& \bestresult{8.77}
+	& \bestresult{58.67}
+        & 0.29
+        & 627.45
+        & 5491
+	\\ 
+\hline
+     3D UNet Stacked Hourglass
+	& 10.63
+	& 39.58
+	& \bestresult{2.64}
+	& \bestresult{85.33}
+	& 9.96
+	& 32.90
+	& 6.13
+	& 81.82
+	& 25.73
+	& 38.31
+	& 11.02
+	& 55.59
+        & \bestresult{0.25}
+        & \bestresult{45.54}
+        & 5373
+    \\
+	
+
+
+
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption[Changing the cost volume regularization layer]{\textbf{Changing the cost volume regularization layer}.
+\textbf{a)} All {\mvsn} derivatives are trained on {\bms}. It is evident that both of our models outperform the baseline. Particularly, the implementation of {\mvsn} using a 2D DispNet decoder shows significant improvement over the baseline. However, we can see that it takes significantly longer to make inferences compared to the baseline. In the second entry, we see that applying the Stacked Hourglass regularization yields better results than the baseline without causing a significant increase in inference time and memory requirements.
+\label{tab:cvr}
+}
+\end{table}
+
+%\end{table*}

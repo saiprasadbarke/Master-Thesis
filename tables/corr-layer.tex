@@ -1,0 +1,436 @@
+%\begin{table*}[t!]
+\begin{table}[ht!]
+\def\arraystretch{1.5}
+\begin{adjustbox}{width=1\textwidth}
+%\resizebox{\columnwidth}{!}{ % scale to columnwidth
+%\resizebox*{\textwidth}{!}{
+\setlength{\tabcolsep}{1mm}
+\begin{tabular}{|l
+|c c
+|c c
+|c c
+|c c
+|c c
+||c |c |c |c |c
+|}
+
+\hline
+    \textbf{Correlation Layer w/o}
+    & \multicolumn{2}{c|}{\textbf{\kittishort{}}}
+    & \multicolumn{2}{c|}{\textbf{\dtushort{}{}}}
+    & \multicolumn{2}{c|}{\textbf{\scannetshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\tanksandtemplesshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\ethdshort{}}}
+    & \multicolumn{5}{c|}{\textbf{Average}}
+    \\
+\hline
+    \textbf{Normalized Features}
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$ & AUSE$ \downarrow$ & time $\downarrow$ & memory $\downarrow$
+    \\
+
+    &&&&&&&&&&&&&&(mSec)&(MB)\\
+    \hline
+    \hline
+
+    \textbf{a) {\mvsn} Base}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\hline
+\rowcolor{bgcolor}
+    \textbf{a1) Default Training and}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\rowcolor{bgcolor}
+    \textbf{    Evaluation Input sizes}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\hdashline
+\rowcolor{bgcolor}
+	MVSNet Base $(V=2, D=128)$
+	& 11.44
+	& 40.50
+	& 2.95
+	& 81.26
+	& 9.80
+	& 32.31
+	& 9.31
+	& 80.24
+	& 31.45
+	& \bestresult{38.51}
+	& 12.99
+	& \bestresult{55.56}
+        & \bestresult{0.26}
+        & 65.2
+        & 5302
+	
+	\\ 
+
+\hline
+	Groupwise ($G=4$) with
+ 	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+        Learned Fusion 
+	& 9.90
+	& 40.89
+	& 3.17
+	& \bestresult{81.40}
+	& 8.86
+	& 33.22
+	& \bestresult{6.59}
+	& \bestresult{80.80}
+	& 21.43
+	& 38.06
+	& 9.99
+	& 54.87
+        & 0.27
+        & \bestresult{34.23}
+        & \bestresult{3153}
+	\\ 
+\hline
+	Groupwise ($G=4$) + WarpOnly
+ 	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+        with Learned Fusion 
+	& \bestresult{8.17}
+	& \bestresult{43.59}
+	& 4.01
+	& 78.52
+	& \bestresult{8.58}
+	& \bestresult{34.98}
+	& 6.71
+	& 80.18
+	& \bestresult{19.21}
+	& 38.09
+	& \bestresult{9.34}
+	& 55.07
+        & 0.28 
+        & 84.28
+        & 8527
+	\\ 
+	
+    \hline
+    \hline
+
+    \textbf{b) {\rmvd} Base}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+
+\hline
+\rowcolor{bgcolor}
+        \textbf{b1) Train on {\bms}} 
+        & 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\rowcolor{bgcolor}
+    \textbf{and reduced Evaluation Input sizes}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\hdashline
+\rowcolor{bgcolor}
+{\rmvd} Base $(V=2 , B=1)$ \(\star\)
+	& \bestresult{8.21}
+	& \bestresult{35.51}
+	& \bestresult{4.24}
+	& \bestresult{71.04}
+	& \bestresult{9.06}
+	& \bestresult{31.07}
+	& 11.34
+	& \bestresult{60.78}
+	& \bestresult{11.13}
+	& \bestresult{36.58}
+	& \bestresult{8.80}
+	& \bestresult{47.00}
+        & 0.28
+        & \bestresult{25.23}
+        & \bestresult{1136}
+	\\ 
+    \hline
+        Groupwise $(G=4)$ with 
+        & 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+	Learned Fusion (600k iterations) 
+	& 10.21
+	& 30.50
+	& 4.92
+	& 69.04
+	& 38.84
+	& 30.21
+	& 9.59
+	& 55.03
+	& 15.29
+	& 31.05
+	& 15.77
+	& 43.16
+        & \bestresult{0.26}
+        & 64.1
+        & 7374
+	\\ 
+        and 2D cost regularization \(\star\)
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+\hline
+        Groupwise $(G=4)$ with 
+        & 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+	Learned Fusion (1000k iterations)
+        & 9.49
+	& 30.09
+	& 4.38
+	& 71.04
+	& 39.83
+	& 30.14
+	& \bestresult{7.37}
+	& 56.49
+	& 13.89
+	& 32.43
+	& 14.99
+	& 44.04
+        & 0.27
+        & 61.38
+        & 7370
+    \\ 
+        and 2D cost regularization \(\star\)
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+\hline
+        Groupwise $(G=4)$ + Full Corr 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+        with Learned fusion and
+	& 32.21
+	& 12.91
+	& 5868.07
+	& 0
+	& 2061.13
+	& 0.63
+	& 96.27
+	& 14.69
+	& 795.89
+	& 5.01
+	& 1770.71
+	& 6.65
+        & 0.35
+        & 127.32
+        & 7504
+	\\ 
+         3D cost regularization \(\star\)
+        & 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+
+	
+\hline
+
+
+
+
+	
+
+\end{tabular}
+\end{adjustbox}
+\caption[Changing the correlation layer]{\textbf{Changing the correlation layer}.
+\textbf{a)} All {\mvsn} and {\rmvd} derivatives are trained on {\bms}. In \textbf{a.1}, we can see that both implementations with {\gwc} (GWC) and the GWC combined with differential homography outperform the baseline. The model using only GWC as a correlation layer has a significantly lesser inference time and memory requirement. In \textbf{b.1}, all our implemented models for {\rmvd} using GWC perform very poorly compared to the baseline. Due to the high memory requirements of GWC for {\rmvd} due to 256 channels in the feature maps, we use the smaller evaluation inputs. This is indicated by a \(\star\). The baselines are shaded in grey.
+\label{tab:corr-layer}
+}
+\end{table}
+
+%\end{table*}

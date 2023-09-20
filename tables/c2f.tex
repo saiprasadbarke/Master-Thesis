@@ -1,0 +1,163 @@
+%\begin{table*}[t!]
+\begin{table}[ht!]
+\footnotesize
+\centering
+\def\arraystretch{1.5}
+\begin{adjustbox}{width=1\textwidth}
+%\resizebox{\columnwidth}{!}{ % scale to columnwidth
+%\resizebox*{\textwidth}{!}{
+\setlength{\tabcolsep}{1mm}
+\begin{tabular}{|l
+|c c
+|c c
+|c c
+|c c
+|c c
+||c |c |c |c |c
+|}
+
+\hline
+
+    \textbf{Feature Extractor for}
+    & \multicolumn{2}{c|}{\textbf{\kittishort{}}}
+    & \multicolumn{2}{c|}{\textbf{\dtushort{}{}}}
+    & \multicolumn{2}{c|}{\textbf{\scannetshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\tanksandtemplesshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\ethdshort{}}}
+    & \multicolumn{5}{c|}{\textbf{Average}}
+    \\
+\hline
+    \textbf{Coarse-to-Fine}
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$ & AUSE$ \downarrow$ & time $\downarrow$ & memory $\downarrow$
+    \\
+
+    &&&&&&&&&&&&&&(mSec)&(MB)\\
+    \hline
+    \hline
+    \textbf{a) {\mvsn} Base}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\hline
+    \rowcolor{bgcolor}
+    \textbf{a1) Default Training and}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\rowcolor{bgcolor}
+    \textbf{    Evaluation Input sizes}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\hdashline
+\rowcolor{bgcolor}
+	MVSNet Base $(V=2, D=128)$
+	& \bestresult{11.44}
+	& \bestresult{40.50}
+	& \bestresult{2.95}
+	& \bestresult{81.26}
+	& 9.80
+	& 32.31
+	& 9.31
+	& 80.24
+	& 31.45
+	& \bestresult{38.51}
+	& 12.99
+	& \bestresult{55.56}
+        & \bestresult{0.26}
+        & \bestresult{65.2}
+        & 5302
+	
+	\\ 
+ \hline
+	Cascade {\mvsn} with FPN FE
+	& 16.11
+	& 26.53
+	& 3.31
+	& 79.77
+	& \bestresult{9.66}
+	& 33.42
+	& \bestresult{5.83}
+	& \bestresult{81.55}
+	& \bestresult{19.78}
+	& 37.34
+	& \bestresult{10.94}
+	& 51.72
+        & 0.88
+        & 168.31
+        & 2101
+	\\ 
+ \hline
+	Cascade {\mvsn} with UNet FE
+	& 24.15
+	& 23.94
+	& 3.21
+	& 79.90
+	& 10.20
+	& \bestresult{33.69}
+	& 7.66
+	& 80.14
+	& 25.85
+	& 36.54
+	& 14.22
+	& 50.84
+        & 0.86
+        & 154.31
+        & \bestresult{2044}
+	\\
+
+	
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption[Changing the feature extractor for Coarse-to-Fine model design]{\textbf{Changing the feature extractor for Coarse-to-Fine model design}.
+\textbf{a)}All {\mvsn} derivatives are trained on {\bms}. From the results, it is evident that the {\mvsn} coarse-to-fine model with FPN feature extractor outperforms the baseline. On the other hand, the model that has the UNet feature extractor performs poorly. Both models have a higher degree of uncertainty than the baseline and take longer to make inferences. However, the memory requirements for these models are significantly lower.
+\label{tab:c2f}
+}
+\end{table}
+
+%\end{table*}

@@ -1,0 +1,395 @@
+%\begin{table*}[t!]
+\begin{table}[ht!]
+
+\def\arraystretch{1.5}
+%\resizebox{\columnwidth}{!}{ % scale to columnwidth
+%\resizebox*{\textwidth}{!}{
+\setlength{\tabcolsep}{1mm}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{|l
+|c c
+|c c
+|c c
+|c c
+|c c
+||c |c |c |c |c
+|}
+
+\hline
+    \textbf{Approach}
+    & \multicolumn{2}{c|}{\textbf{\kittishort{}}}
+    & \multicolumn{2}{c|}{\textbf{\dtushort{}{}}}
+    & \multicolumn{2}{c|}{\textbf{\scannetshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\tanksandtemplesshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\ethdshort{}}}
+    & \multicolumn{5}{c|}{\textbf{Average}}
+    \\
+\hline
+
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$ & AUSE$ \downarrow$ & time $\downarrow$ & memory $\downarrow$
+    \\
+
+    &&&&&&&&&&&&&&(mSec)&(MB)\\
+    \hline
+    \hline
+\rowcolor{bgcolor}
+    \textbf{a) MVSNet} \cite{schroeppel2022benchmark}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\hline
+	$V=2, D=256$ \(\star\)
+	& 9.20
+	& 45.09
+	& 2.97
+	& 81.41
+	& {8.79}
+	& {34.13}
+	& 5.81
+	& 78.47
+	& 18.45
+	& 38.67
+	& 9.05
+	& 55.55
+        & 0.28
+        & 67.24
+        & 7276
+	\\ 
+\hline
+	$V=2, D=128$
+	& 11.44
+	& 40.50
+	& 2.95
+	& 81.26
+	& 9.80
+	& 32.31
+	& 9.31
+	& 80.24
+	& 31.45
+	& 38.51
+	& 12.99
+	& 55.56
+        & 0.26
+        & 65.2
+        & 5302
+	\\ 
+ \hline
+
+	$V=2, D=128$ \(\star\)
+	& 11.44
+	& 40.50
+	& 2.84
+	& 82.24
+	& 9.80
+	& 32.31
+	& 8.92
+	& 78.97
+	& 25.28
+	& 39.87
+	& 11.65
+	& 54.78
+        & 0.27
+        & 50.78
+        & 3654
+	\\
+ \hline
+         $V=2, D=128,$
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+        $H=480, W=640$ 
+	& 8.42
+	& 46.64
+	& 2.88
+	& 83.12
+	& 9.47
+	& 33.94
+	& 5.97
+	& 82.65
+	& 24.61
+	& 40.46
+	& 10.27
+	& 57.36
+        & 0.27
+        & 37.56
+        & 5338
+	\\ 
+	
+    \hline
+        $V=2, D=128,$
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+        $H=480, W=640$ \({\star}\)
+	& 8.42
+	& 46.64
+	& 2.63
+	& {84.68}
+	& 9.47
+	& 33.94
+	& 5.53
+	& 81.88
+	& 19.70
+	& 41.30
+	& 9.15
+	& 57.69
+        & 0.27
+        & 51.07
+        & 3663 
+	\\ 
+	
+    \hline
+    \hline
+\rowcolor{bgcolor}
+    \textbf{b) RobustMVD} \cite{schroeppel2022benchmark}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\hline
+	{\brs} 
+ 	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+        $(V=4 , B=4)$ (Baseline from \cite{schroeppel2022benchmark})
+        & 7.42
+	& 39.81
+	& 3.23
+	& 79.07
+	& 9.59
+	& 30.72
+	&7.49
+	& 69.31
+	& 9.62
+	& 42.67
+	& 7.47
+	& 52.32
+ 	& 0.26
+	& 31.21
+	& 2159
+
+    \\
+\hline
+	{\bms} 
+ 	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+	$(V=2 , B=1)$
+	& 8.22
+	& 35.51
+	& 4.74
+	& 68.00
+	& 9.06
+	& 31.07
+	& 12.58
+	& 62.87
+	& 11.58
+	& 36.60
+	& 9.24
+	& 46.81
+        & 0.28
+        & 30.24
+        & 2125
+	\\ 
+ \hline
+        {\bms} 
+ 	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+	$V=2 , B=1$ \(\star\)
+	& 8.21
+	& 35.51
+	& 4.24
+	& 71.04
+	& 9.06
+	& 31.07
+	& 11.34
+	& 60.78
+	& 11.13
+	& 36.58
+	& 8.80
+	& 47.00
+        & 0.28
+        & 25.23
+        & 1136
+	\\ 
+	
+\hline
+\hline
+\rowcolor{bgcolor}
+    \textbf{c) Original Wrapped Models}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\hline
+	MVSNet-pl wrapped (Baseline from \cite{Yao2018})
+	& 21.91
+	& 18.21
+	& 2.56
+	& 82.19
+	& 22.12
+	& 20.54
+	& 9.29
+	& 69.49
+	& 38.92
+	& 30.25
+	& 18.96
+	& 44.14
+        & 0.33
+        & 105.73
+        & 7827
+	\\ 
+ \hline
+	MVSNet-pl wrapped \(\star\)
+	& 21.91
+	& 18.21
+	& 2.07
+	& 85.28
+	& 22.12
+	& 20.54
+	& 9.30
+	& 65.68
+	& 36.16
+	& 30.13
+	& 18.31
+	& 43.97
+ 	& 0.35
+	& 73.55
+	& 5307
+	\\ 
+\hline
+	Vis-MVSNet wrapped (Baseline from \cite{Zhang2020})
+	& 14.97
+	& {46.94}
+	& {2.44}
+	& 84.10
+	& 9.97
+	& 31.65
+	& {5.22}
+	& {82.62}
+	& 14.71
+	& {43.19}
+	& 9.47
+	& {57.70}
+        & 0.33
+        & 104.73
+        & 7827
+	\\ 
+	
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption[Baseline Results]{\textbf{Baseline Results}.
+\textbf{a)} MVSNet is trained and evaluated with 128 and 256 depth levels $(D)$. We also train {\mvsn} with smaller inputs. This baseline is used to compare results with models having a high memory footprint. Each of these configurations is also evaluated with smaller inputs. These evaluation results are indicated by \(\star\). \textbf{b)} RobustMVD is trained on two different settings: The first setting uses the {\brs} with $B = 4$, and the second setting uses {\bms} with $B = 1$. The third evaluation has the same training configuration as the second one but is evaluated on smaller inputs. This has been indicated by a \(\star\). All {\rmvd} baselines and derivative models use \(D=256\). In all {\rmvd} baselines, Scale Augmentation is applied to the training data. \textbf{c)} Wrapped original implementations of the baselines implemented in the RobustMVD framework. The MVSNet-pl model is trained on DTU with two source views, and Vis-MVSNet is trained with four source views on BlendedMVS. We also evaluate the MVSNet-pl model with the smaller inputs indicated by a \(\star\).
+}
+\label{tab:baseline}
+\end{table}
+%\end{table*}

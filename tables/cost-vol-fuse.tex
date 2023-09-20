@@ -1,0 +1,258 @@
+%\begin{table*}[t!]
+\begin{table}[ht!]
+\def\arraystretch{1.5}
+\begin{adjustbox}{width=1\textwidth}
+%\resizebox{\columnwidth}{!}{ % scale to columnwidth
+%\resizebox*{\textwidth}{!}{
+\setlength{\tabcolsep}{1mm}
+\begin{tabular}{|l
+|c c
+|c c
+|c c
+|c c
+|c c
+||c |c |c |c |c
+|}
+
+\hline
+
+    \textbf{Fusion Method}
+    & \multicolumn{2}{c|}{\textbf{\kittishort{}}}
+    & \multicolumn{2}{c|}{\textbf{\dtushort{}{}}}
+    & \multicolumn{2}{c|}{\textbf{\scannetshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\tanksandtemplesshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\ethdshort{}}}
+    & \multicolumn{5}{c|}{\textbf{Average}}
+    \\
+\hline
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$ & AUSE$ \downarrow$ & time $\downarrow$ & memory $\downarrow$
+    \\
+
+    &&&&&&&&&&&&&&(mSec)&(MB)\\
+    \hline
+    \hline
+
+    \textbf{a) {\mvsn} Base}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+    \hline
+    \rowcolor{bgcolor}
+    \textbf{a1) Default Training and}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\rowcolor{bgcolor}
+    \textbf{    Evaluation Input sizes}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\hdashline
+\rowcolor{bgcolor}
+	MVSNet Base $(V=2, D=128)$
+	& \bestresult{11.44}
+	& \bestresult{40.50}
+	& \bestresult{2.95}
+	& \bestresult{81.26}
+	& \bestresult{9.80}
+	& \bestresult{32.31}
+	& \bestresult{9.31}
+	& \bestresult{80.24}
+	& \bestresult{31.45}
+	& \bestresult{38.51}
+	& \bestresult{12.99}
+	& \bestresult{55.56}
+        & \bestresult{0.26}
+        & 65.2
+        & 5302
+	
+	\\ 
+
+\hline
+	{\mvsn} with Learned Fusion
+	& 27.53
+	& 10.48
+	& 9.71
+	& 49.54
+	& 15.52
+	& 17.25
+	& 12.73
+	& 50.88
+	& 38.42
+	& 16.50
+	& 20.78
+	& 28.93
+        & 0.39
+        & 37.21
+        & 5732
+	\\ 
+ \hline
+	{\mvsn} with Average Fusion
+	& 37.42
+	& 10.44
+	& 9.29
+	& 48.40
+	& 16.91
+	& 18.91
+	& 14.28
+	& 47.44
+	& 40.21
+	& 14.36
+	& 22.06
+	& 27.87
+        & 0.37
+        & \bestresult{35.82}
+        & \bestresult{4322}
+	\\
+
+\hline
+\hline
+        \textbf{b){\rmvd} Base}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\
+ \hline
+ \rowcolor{bgcolor}
+        \textbf{b1) Train on {\bms}} 
+        & 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\rowcolor{bgcolor}
+    \textbf{and default Evaluation Input sizes}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+        & 
+	& 
+	& 
+        \\
+\hdashline
+\rowcolor{bgcolor}
+{\rmvd} Base $(V=2 , B=1)$ 
+	& \bestresult{8.22}
+	& \bestresult{35.51}
+	& 4.74
+	& 68.00
+	& 9.06
+	& 31.07
+	& 12.58
+	& 62.87
+	& \bestresult{11.58}
+	& 36.60
+	& 9.24
+	& 46.81
+        & 0.28
+        & \bestresult{30.24}
+        & 2125
+	\\ 
+ \hline
+        {\rmvd} with Average Fusion \((V=2)\)
+	& 8.99
+	& 34.82
+	& \bestresult{4.06}
+	& \bestresult{73.66}
+	& \bestresult{8.83}
+	& \bestresult{31.68}
+	& \bestresult{9.91}
+	& \bestresult{65.65}
+	& 13.34
+	& \bestresult{39.16}
+	& \bestresult{9.02}
+	& \bestresult{48.99}
+        & \bestresult{0.26}
+        & 45.53
+        & \bestresult{1783}
+	\\ 
+	
+
+
+	
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption[Changing the cost volume fusion layer]{\textbf{Changing the cost volume fusion layer}.
+\textbf{a)} For experiments with the fusion layer, both {\mvsn} derivatives and {\rmvd} derivatives are trained on {\bms}. A variance-based fusion only makes sense if there is only warping and no correlation computation between the reference and source features, as in {\mvsn}. In \textbf{a.1}, we can see that both learned fusion and average fusion don't work well with {\mvsn} for this reason. Consequently, we omit the combination {\rmvd} with Variance Fusion because {\rmvd} computes the full correlation between the reference and the source features. In \textbf{b.1}, we can see that average fusion gives slightly better results for average fusion compared to learned fusion for the given number of views. It should be noted that this might not necessarily be the case if the same experiment is repeated with a larger number of source views. 
+\label{tab:cvf}
+}
+\end{table}
+
+%\end{table*}

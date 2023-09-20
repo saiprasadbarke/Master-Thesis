@@ -1,0 +1,31 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[htbp]
+\scriptsize
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\def\arraystretch{1.75}
+\begin{tabular}{|l|c|c|c|c|c|c|c|}
+\hline
+\rowcolor{bgcolor}
+\textbf{Operation}                     & \textbf{Kernel} & \textbf{Stride} & \textbf{Ch I/O} & \textbf{InpRes} & \textbf{OutRes} & \textbf{Input}     & \textbf{Output} \\ \hline
+\hline
+\rowcolor{bgcolor}
+\textbf{(1) Attention Fusion}           &                 &                 &                 &                 &                 &                    &                 \\ \hline
+for each feature $f = 0, .., k:$            &                 &                 &                 &                 &                 &                    &                 \\ \hline
+
+\hspace{0.75cm}2D convolution + BatchNorm + Sigmoid                    & 3×3             & 1               & 385/384            &      \(\frac{H}{16}, \frac{W}{16}\)    & \(\frac{H}{16}, \frac{W}{16}\)          & $concat[features, saliency]$          & $x_1$          \\ \hline
+\hspace{0.75cm}2D convolution + BatchNorm + Sigmoid                           & 3×3             & 1               & 384/384            &  \(\frac{H}{16}, \frac{W}{16}\)  &  \(\frac{H}{16}, \frac{W}{16}\)         &   $[features \times saliency]$         & $x_2$          \\ \hline
+\hspace{0.75cm}2D convolution                            & 1×1             & 1               & 384/256          & \(\frac{H}{16}, \frac{W}{16}\)         & \(\frac{H}{16}, \frac{W}{16}\)         &  $[x_1 \times x_2]$           &  $proj$          \\ \hline
+
+\hline
+\rowcolor{bgcolor}
+\textbf{(2) Decoder}   &                 &                 &                 &                 &                 &                    &                 \\ \hline
+\hspace{0.75cm}Transposed 2D Convolution + Batchnorm + GELU              & 4×4               & 2              & 256/128     & \(\frac{H}{16}, \frac{W}{16}\)           & \(\frac{H}{8}, \frac{W}{8}\)           & $proj$   & $conv^T_1$   \\ \hline
+\hspace{0.75cm}Transposed 2D Convolution + Batchnorm + GELU              & 4×4              & 2               & 128/64     & \(\frac{H}{8}, \frac{W}{8}\)           & \(\frac{H}{4}, \frac{W}{4}\)           & $conv^T_1$  & $conv^T_2$   \\ \hline
+\end{tabular}
+\end{adjustbox}
+\caption[Architecture of the ViT Decoder.]{Architecture of the ViT Decoder. The output $conv^T_2$ is concatenated with the learned features of the {\mvsn} siamese encoder, which also have the dimensions \(\frac{H}{4}, \frac{W}{4}\). The concatenated feature map passed as input to the warping operation has 96 channels in total. The pretrained ViT has an output channel dimension $d$ of 64, and the number of attention heads $h$ is 6, making the number of channels in the ViT features 384. The additional single channel is from the saliency map, bringing the total number of channels of input to the Attention Fusion submodule to 385.
+}
+\label{tab:arch-vitdec}
+\end{table}

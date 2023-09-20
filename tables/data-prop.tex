@@ -1,0 +1,513 @@
+%\begin{table*}[t!]
+\begin{table}[ht!]
+\footnotesize
+\centering
+\def\arraystretch{1.5}
+\begin{adjustbox}{width=1\textwidth}
+%\resizebox{\columnwidth}{!}{ % scale to columnwidth
+%\resizebox*{\textwidth}{!}{
+\setlength{\tabcolsep}{1mm}
+\begin{tabular}{|l
+|c c
+|c c
+|c c
+|c c
+|c c
+||c |c |c |c |c
+|}
+
+\hline
+
+    \textbf{Approach}
+    & \multicolumn{2}{c|}{\textbf{\kittishort{}}}
+    & \multicolumn{2}{c|}{\textbf{\dtushort{}{}}}
+    & \multicolumn{2}{c|}{\textbf{\scannetshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\tanksandtemplesshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\ethdshort{}}}
+    & \multicolumn{5}{c|}{\textbf{Average}}
+    \\
+\hline
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$ & AUSE$ \downarrow$ & time $\downarrow$ & memory $\downarrow$
+    \\
+
+    &&&&&&&&&&&&&&(mSec)&(MB)\\
+    \hline
+    \hline
+
+    \textbf{a) Change Dataset}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\hline
+\rowcolor{bgcolor}
+    \textbf{a1)} {\mvsn} Baseline \((V=2, D=128)\)
+	& \bestresult{11.44}
+	& \bestresult{40.50}
+	& 2.95
+	& 81.26
+	& \bestresult{9.80}
+	& \bestresult{32.31}
+	& 9.31
+	& \bestresult{80.24}
+	& 31.45
+	& \bestresult{38.51}
+	& \bestresult{12.99}
+	& \bestresult{55.56}
+        & 0.26
+        & \bestresult{65.2}
+        & \bestresult{5302}
+    \\
+\hline
+	{\mvsn} trained on {\dtushort{}{}} 
+        & 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+
+        ($D=128, V=2$)
+	& 18.67
+	& 38.80
+	& \bestresult{2.32}
+	& \bestresult{85.84}
+	& 12.17
+	& 26.55
+	& \bestresult{8.28}
+	& 75.35
+	& \bestresult{26.44}
+	& 31.98
+	& 13.57
+	& 51.70
+        & -
+        & 112.73
+        & 8716
+	\\ 
+    \hline
+    \rowcolor{bgcolor}
+        \textbf{a2)} {\rmvd} Baseline with
+        & 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\rowcolor{bgcolor}
+    {\bms} \((V=2)\)
+ 	& \bestresult{8.22}
+	& \bestresult{35.51}
+	& 4.74
+	& \bestresult{68.00}
+	& \bestresult{9.06}
+	& \bestresult{31.07}
+	& \bestresult{12.58}
+	& \bestresult{62.87}
+	& \bestresult{11.58}
+	& \bestresult{36.60}
+	& \bestresult{9.24}
+	& \bestresult{46.81}
+        & 0.28
+        & 30.24
+        & 2125
+    \\
+    \hline
+        {\rmvd} trained on {\dtushort{}{}} 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+	\\ 
+
+        ($D=256, V=2$)
+	& 48.16
+	& 4.07
+	& \bestresult{3.82}
+	& 62.39
+	& 33.70
+	& 5.98
+	& 50.80
+	& 10.71
+	& 51.14
+	& 5.35
+	& 37.53
+        & 17.70
+        & -
+        & \bestresult{25.07}
+        & \bestresult{1932}
+    \\
+	
+    \hline
+    \hline
+
+    \textbf{b) Scale Augmentation}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\hline
+\rowcolor{bgcolor}
+    \textbf{b1)} {\mvsn} Baseline \((V=2, D=128)\)
+	& 11.44
+	& 40.50
+	& 2.95
+	& 81.26
+	& 9.80
+	& 32.31
+	& 9.31
+	& 80.24
+	& 31.45
+	& \bestresult{38.51}
+	& 12.99
+	& 55.56
+        & 0.26
+        & 65.2
+        & \bestresult{5302}
+    \\
+\hline
+	{\mvsn} \((V=2,D = 128)\) with Scale Aug
+	& \bestresult{8.06}
+	& \bestresult{48.01}
+	& \bestresult{2.63}
+	& \bestresult{83.27}
+	& \bestresult{9.24}
+	& \bestresult{34.91}
+	& \bestresult{5.78}
+	& \bestresult{83.15}
+	& \bestresult{24.46}
+	& 37.58
+	& \bestresult{10.03}
+	& \bestresult{57.38}
+        & \bestresult{0.26}
+        & \bestresult{38.58}
+        & 5445
+    \\
+\hline
+\rowcolor{bgcolor}
+    \textbf{b2)} {\rmvd} Baseline with
+        & 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\rowcolor{bgcolor}
+    {\brs} \((V=4)\)
+	& \bestresult{7.42}
+	& \bestresult{39.81}
+	& \bestresult{3.23}
+	& \bestresult{79.07}
+	& \bestresult{9.59}
+	& \bestresult{30.72}
+	& \bestresult{7.49}
+	& \bestresult{69.31}
+	& \bestresult{9.62}
+	& \bestresult{42.67}
+	& \bestresult{7.47}
+	& \bestresult{52.32}
+ 	& \bestresult{0.26}
+	& 31.21
+	& \bestresult{2159} 
+    \\
+        \hline
+    {\rmvd} without Scale Aug \((V=4)\)
+	& 10.90
+	& 26.63
+	& 4.00
+	& 72.27
+	& 10.99
+	& 27.32
+	& 15.08
+	& 58.51
+	& 12.13
+	& 35.34
+	& 10.62
+	& 44.01
+ 	& 0.28
+	& \bestresult{29.35}
+	& 2168
+    \\
+\hline
+\hline
+
+    \textbf{c) Number of Source Views}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\hline
+\rowcolor{bgcolor}
+    \textbf{c1)} {\mvsn} Baseline \((V=2, D=128)\)
+	& 11.44
+	& 40.50
+	& \bestresult{2.95}
+	& 81.26
+	& 9.80
+	& 32.31
+	& 9.31
+	& 80.24
+	& 31.45
+	& 38.51
+	& 12.99
+	& 55.56
+        & 0.26
+        & 65.2
+        & \bestresult{5302}
+    \\
+    \hline
+	{\mvsn} Base ($D=128,\textbf{V=4}$)
+	& \bestresult{7.93}
+	& \bestresult{47.09}
+	& 2.99
+	& \bestresult{82.15}
+	& \bestresult{9.54}
+	& \bestresult{33.43}
+	& \bestresult{7.54}
+	& \bestresult{82.39}
+	& \bestresult{23.81}
+	& \bestresult{39.92}
+	& \bestresult{10.76}
+	& \bestresult{57.00}
+        & \bestresult{0.26}
+        & \bestresult{38.58}
+        & 5445
+    \\
+\hline
+\hline
+    \textbf{d) Sampling Strategy for Views}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\hline
+\rowcolor{bgcolor}
+    \textbf{d1)} {\mvsn} Baseline \((V=2, D=128)\)
+	& 11.44
+	& 40.50
+	& 2.95
+	& 81.26
+	& 9.80
+	& 32.31
+	& 9.31
+	& 80.24
+	& 31.45
+	& 38.51
+	& 12.99
+	& 55.56
+        & \bestresult{0.26}
+        & \bestresult{65.2}
+        & \bestresult{5302}
+    \\
+    \hline
+	{\mvsn}  ($D=128, V=2$)
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+         All Combinations + Random Selection
+	& \bestresult{7.55}
+	& \bestresult{46.00}
+	& \bestresult{2.68}
+	& \bestresult{83.17}
+	& \bestresult{8.87}
+	& \bestresult{34.30}
+	& \bestresult{6.54}
+	&\bestresult{ 81.63}
+	& \bestresult{17.33}
+	& \bestresult{41.41}
+	& \bestresult{8.60}
+	& \bestresult{57.30}
+        & 0.27
+        & 76.52
+        & 5427
+    \\
+\hline
+\rowcolor{bgcolor}
+    \textbf{d2)} {\rmvd} Baseline with
+        & 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+\rowcolor{bgcolor}
+    {\brs} \((V=4)\)
+	& 7.42
+	& 39.81
+	& \bestresult{3.23}
+	& \bestresult{79.07}
+	& 9.59
+	& 30.72
+	& \bestresult{7.49}
+	& \bestresult{69.31}
+	& \bestresult{9.62}
+	& \bestresult{42.67}
+	& \bestresult{7.47}
+	& \bestresult{52.32}
+ 	& \bestresult{0.26}
+	& \bestresult{31.21}
+	& 2159 
+    \\
+    \hline
+        {\rmvd} Base  ($V=4$)
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+ 	& 
+	& 
+	& 
+    \\
+         \textit{Best matching views}
+	& \bestresult{7.40}
+	& \bestresult{40.85}
+	& 4.13
+	& 74.11
+	& \bestresult{8.86}
+	& \bestresult{31.82}
+	& 9.13
+	& 69.12
+	& 10.19
+	& 41.00
+	& \bestresult{7.94}
+	& 51.38
+        & 0.27
+        & 31.61
+        & \bestresult{2139}
+    \\
+	
+    \hline
+
+\end{tabular}
+\end{adjustbox}
+\caption[Changing the training data properties]{\textbf{Changing the training data properties}.
+\textbf{a)}In this ablation study, we only alter one aspect of the training data at a time. The baselines for each experiment are provided above it in grey. \textbf{a)} We can see that both {\mvsn} and {\rmvd} trained on DTU perform poorly compared to their baselines. \textbf{b)} Models trained with scale augmentation perform better, particularly on {\ethd}, where they often produce poorer results, compared to models trained without scale augmentation. \textbf{c)} Increasing the number of source views increases the performance of the model. \textbf{d)} An all combinations - random selection strategy for training input data gives better evaluation results than choosing the best-matching source views. 
+\label{tab:data-prop}
+}
+\end{table}
+
+%\end{table*}

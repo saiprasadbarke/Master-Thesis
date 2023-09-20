@@ -1,0 +1,40 @@
+\begin{table}[htbp]
+\scriptsize
+\centering
+\def\arraystretch{1.5}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\rowcolor{bgcolor}
+\textbf{Architecture} & \textbf{Feature} & \textbf{Correlation} & \textbf{Cost Volume} & \textbf{Cost Volume} & \textbf{Coarse-to-fine} & \textbf{Loss}  \\ 
+\rowcolor{bgcolor}
+& \textbf{Extraction} & \textbf{Layer} & \textbf{Fusion} & \textbf{Regularization} & \textbf{Refinement} &   \\ \hline
+
+\textbf{MVSNet}       & Siamese Encoder             & Warp Only                  & Variance                    & 3D UNet                    & No                          & Regression     \\ \hline
+
+
+\textbf{RobustMVD}    & Siamese Encoder             & Full           & Learned Weights      & 2D UNet                    & No                          & Classification \\ 
+    &              &            & Average      &                     &                           &  \\ \hline
+
+
+\textbf{Vis-MVSNet}   & Siamese UNet                & Groupwise                  & Visibility                    & Stacked Hourglass                   & Yes                         & Classification \\ 
+    &              &            & Weighted Average      &                     &                           &  \\ \hline
+
+    
+\textbf{CVP-MVSNet}   & Siamese FPN                & Warp Only                  & Variance                    & 3D UNet                   & Yes                         & Regression     \\ \hline
+
+
+\textbf{CasMVSNet}    & Siamese FPN                & Warp Only                  & Variance                    & 3D UNet                   & Yes                         & Regression     \\ \hline
+
+
+\textbf{GWC-Net} & Siamese UNet & Groupwise  & Concatenation & Stacked Hourglass & No & Regression \\ \hline
+
+
+\textbf{MVSFormer} & Siamese FPN + & Groupwise & Visibility  & 3D UNet & Yes & Regression + \\
+    &Pretrained ViT              &            &weighted variance       &                     &                           & Classification  \\ \hline
+
+    
+\textbf{R-MVSNet}     & Siamese Encoder             & Warp Only                  & Variance                    & RNN                        & No                          & Classification     \\ \hline
+\end{tabular}
+\caption[Comparison of MVS architectures.]{\textbf{Comparison of MVS architectures.} This table highlights the diversity of components and modularization that is possible due to the clear-cut separation of concerns of the different architectural components in an MVS pipeline. It must be noted that while GWC-Net is a stereo method, it can be implemented as an {\mvs} method similar to how {\rmvd} is implemented as the MVS extension of DispNet. } 
+\label{tab:methods-comparision}
+\end{table}

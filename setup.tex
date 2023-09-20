@@ -1,0 +1,540 @@
+
+%------------------------------------------------------------------------------
+%       package includes
+%------------------------------------------------------------------------------
+    % font encoding is set up for pdflatex, for other environments see
+    % http://tex.stackexchange.com/questions/44694/fontenc-vs-inputenc
+    \usepackage[T1]{fontenc}  % 8-bit fonts, improves handling of hyphenations
+    \usepackage[utf8x]{inputenc}
+    % provides `old' commands for table of contents. Eases the ability to switch
+    % between book and scrbook
+    \usepackage{scrhack}
+    \usepackage[section]{placeins}
+
+    % ------------------- layout, default -------------------
+    % adjust the style of float's captions, separated from text to improve readabilty
+    \usepackage[labelfont=bf, labelsep=colon, format=hang, textfont=singlespacing]{caption}
+    \usepackage{chngcntr}  % continuous numbering of figures/tables over chapters
+    \counterwithout{equation}{chapter}
+    \counterwithout{figure}{chapter}
+    \counterwithout{table}{chapter}
+
+    % Uncomment the following line if you switch from scrbook to book
+    % and comment the setkomafont line
+    %\usepackage{titlesec}  % remove "Chapter" from the chapter title
+    %\titleformat{\chapter}[hang]{\bfseries\huge}{\thechapter}{2pc}{\huge}
+    \setkomafont{chapter}{\normalfont\bfseries\huge}
+
+    \usepackage{setspace}  % Line spacing
+    \onehalfspacing
+    % \doublespacing  % uncomment for double spacing, e.g. for annotations in correction
+
+    % ------------------- functional, default-------------------
+    \usepackage{array}  % custom format per column in table - needed on the title page
+    \usepackage{graphicx}  % include graphics
+    \usepackage{subfig}  % divide figure, e.g. 1(a), 1(b)...
+    \usepackage{amsmath}  % |
+    \usepackage{amsthm}   % | math, bmatrix etc
+    \usepackage{amsfonts} % |
+    \usepackage{calc}  % calculate within LaTeX
+    \usepackage[unicode=true,bookmarks=true,bookmarksnumbered=true,
+                bookmarksopen=true,bookmarksopenlevel=1,breaklinks=false,
+                pdfborder={0 0 0},backref=false,colorlinks=false]{hyperref}
+
+    \usepackage{fancyhdr}
+    \usepackage{longtable}
+    %==========================================
+    % You might not need the following packages, I only included them as they
+    % are needed for the example floats
+    % ------------------- functional, custom -------------------
+    \usepackage{algorithm,algpseudocode}
+    \usepackage{bm}  % bold greek variables (boldmath)
+    \usepackage{tikz}
+    \usetikzlibrary{positioning}  % use: above left of, etc
+
+    % Improves general appearance of the text
+    \usepackage[protrusion=true,expansion=true, kerning]{microtype}
+    % Include other packages here, before hyperref.
+    
+    \usepackage{adjustbox}
+    \usepackage{graphicx}
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{amsfonts}
+    \usepackage{booktabs}
+    \usepackage{times}
+    \usepackage{epsfig}
+    % \usepackage{adjcalc}
+    % \usepackage{adjustbox}
+    \usepackage{pifont}
+    \usepackage{color, colortbl}
+    \usepackage{siunitx}
+    % \usepackage{subfig}
+    % \usepackage{bm}
+    \usepackage[table, dvipsnames]{xcolor} % for coloring cells
+    % \usepackage{blindtext}
+    % \usepackage{lipsum}
+    % \usepackage{mathtools} 
+    \usepackage{color, colortbl}
+    \usepackage{tabularx,ltablex}
+    \usepackage{arydshln}
+    \usepackage{ragged2e}
+% It is strongly recommended to use hyperref, especially for the review version.
+% hyperref with option pagebackref eases the reviewers' job.
+% Please disable hyperref *only* if you encounter grave issues, e.g. with the
+% file validation for the camera-ready version.
+%
+% If you comment hyperref and then uncomment it, you should delete
+% ReviewTempalte.aux before re-running LaTeX.
+% (Or just hit 'q' on the first LaTeX run, let it finish, and you
+%  should be clear).
+
+
+% Support for easy cross-referencing
+\usepackage[capitalize]{cleveref}
+
+%------------------------------------------------------------------------------
+%       (re)new commands / settings
+%------------------------------------------------------------------------------
+    % ----------------- referencing ----------------
+    \newcommand{\secref}[1]{Section~\ref{#1}}
+    \newcommand{\chapref}[1]{Chapter~\ref{#1}}
+    \renewcommand{\eqref}[1]{Equation~(\ref{#1})}
+    \newcommand{\figref}[1]{Figure~\ref{#1}}
+    \newcommand{\tabref}[1]{Table~\ref{#1}}
+
+    % ------------------- colors -------------------
+    \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+    % Colors of the Albert Ludwigs University as in
+    % https://www.zuv.uni-freiburg.de/service/cd/cd-manual/farbwelt
+    \definecolor{UniBlue}{RGB}{0, 74, 153}
+    \definecolor{UniRed}{RGB}{193, 0, 42}
+    \definecolor{UniGrey}{RGB}{154, 155, 156}
+
+
+    % ------------------- layout -------------------
+    % prevents floating objects from being placed ahead of their section
+    \let\mySection\section\renewcommand{\section}{\suppressfloats[t]\mySection}
+    \let\mySubSection\subsection\renewcommand{\subsection}{\suppressfloats[t]\mySubSection}
+
+
+    % ------------------- marker commands -------------------
+    % ToDo command
+    \newcommand{\todo}[1]{\textbf{\textcolor{red}{(TODO: #1)}}}
+    \newcommand{\extend}[1]{\textbf{\textcolor{darkgreen}{(EXTEND: #1)}}}
+    % Lighter color to note down quick drafts
+    \newcommand{\draft}[1]{\textbf{\textcolor{NavyBlue}{(DRAFT: #1)}}}
+
+
+    % ------------------- math formatting commands -------------------
+    % define vectors to be bold instead of using an arrow
+    \renewcommand{\vec}[1]{\mathbf{#1}}
+    \newcommand{\mat}[1]{\mathbf{#1}}
+    % tag equation with name
+    \newcommand{\eqname}[1]{\tag*{#1}}
+
+
+    % ------------------- pdf settings -------------------
+    % ADAPT THIS
+    \hypersetup{pdftitle={Analysing Multi-view Depth Estimation in a common framework},
+                pdfauthor={Saiprasad Barke},
+                pdfsubject={Master thesis at the University of Freiburg},
+                pdfkeywords={deep learning, multi-view stereo,  master thesis},
+                pdfpagelayout=OneColumn, pdfnewwindow=true, pdfstartview=XYZ, plainpages=false}
+
+
+    %==========================================
+    % You might not need the following commands, I only included them as they
+    % are needed for the example floats
+
+    % ------------------- Tikz styles -------------------
+    \tikzset{>=latex}  % arrow style
+
+
+    % ------------------- algorithm ---------------------
+    % Command to align comments in algorithm
+    \newcommand{\alignedComment}[1]{\Comment{\parbox[t]{.35\linewidth}{#1}}}
+    % define a foreach command in algorithms
+    \algnewcommand\algorithmicforeach{\textbf{foreach}}
+    \algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+
+    
+    \crefname{section}{Sec.}{Secs.}
+    \Crefname{section}{Section}{Sections}
+    \Crefname{table}{Table}{Tables}
+    \crefname{table}{Tab.}{Tabs.}
+    
+    % colors:
+    \definecolor{mylightgreen}{RGB}{51,153,102}
+    \definecolor{mydarkgreen}{RGB}{17,121,74}
+    
+    \definecolor{mygreenblue}{RGB}{47,111,112}
+    \definecolor{mylightblue}{RGB}{172,207,208} 
+    
+    \definecolor{myyellow}{RGB}{215,179,18} 
+    \definecolor{myorange}{RGB}{215,136,18}
+    
+    \definecolor{mylightred}{RGB}{192,72,72} 
+    \definecolor{mydarkred}{RGB}{158,28,28} 
+    
+    \definecolor{mylightgray}{RGB}{238,238,238} 
+    \definecolor{mymedgray}{RGB}{202,204,206} 
+    \definecolor{mydarkgray}{RGB}{42,44,46}
+    
+    \definecolor{mymaxturbo}{RGB}{161,17,1}
+    \definecolor{myminturbo}{RGB}{57,42,119}
+    
+    \colorlet{bgcolor}{mylightgray}
+    \colorlet{poscolor}{mydarkgreen}
+    \colorlet{negcolor}{mydarkred}
+    \colorlet{outputscalingcolor}{blue}
+    \definecolor{draftcolor}{RGB}{0,73,95}
+
+    % comment commands:
+    \newcommand{\tb}[1]{\textcolor{mydarkgreen}{\footnotesize Thomas: #1}} % Thomas comments
+    \newcommand{\tcb}[1]{\textcolor{mydarkgreen}{\footnotesize Thomas: #1}} % Thomas comments
+    \newcommand{\tcp}[1]{\textcolor{mydarkred}{\footnotesize Philipp: #1}} % Philipp comments
+    \newcommand{\cz}[1]{\textcolor{mygreenblue}{\footnotesize Christian: #1}} % Christian comments
+    \newcommand{\tco}[1]{\textcolor{myorange}{\footnotesize Ozgun: #1}} % Ozgun comments
+    \newcommand{\ar}[1]{\textcolor{mygreenblue}{\footnotesize Artemij: #1}} % Christian comments
+    \newcommand{\jan}[1]{\textcolor{mylightgreen}{\footnotesize Jan: #1}} % Jan comments
+    
+    % \newcommand{\tb}[1]{\textcolor{mydarkgreen}{}} % Thomas comments
+    % \newcommand{\tcb}[1]{\textcolor{mydarkgreen}{}} % Thomas comments
+    % \newcommand{\tcp}[1]{\textcolor{mydarkred}{}} % Philipp
+    % \newcommand{\cz}[1]{\textcolor{mygreenblue}{}} % Christian comments
+    % \newcommand{\tco}[1]{\textcolor{myorange}{}} % Ozgun comments
+    % \newcommand{\ar}[1]{\textcolor{mygreenblue}{}} % Christian comments
+    % \newcommand{\jan}[1]{\textcolor{mylightgreen}{}} % Jan comments
+    
+    \newcommand\blfootnote[1]{%
+      \begingroup
+      \renewcommand\thefootnote{}\footnote{#1}%
+      \addtocounter{footnote}{-1}%
+      \endgroup
+    }
+    
+    \newcommand{\tdraft}[1]{\textcolor{draftcolor}{Draft: #1}}
+    \newcommand{\ttodo}[1]{\textcolor{mydarkred}{Todo: #1}}
+    
+    % custom commands:
+    
+    \newcommand{\fakeparagraph}[1]{\noindent\textbf{#1}{ }}
+    
+    \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+    \newcommand{\norm}[2]{\left\lVert #1 \right\rVert_{#2}}
+    \newcommand{\loss}{\mathcal{L}}
+    \newcommand{\vect}[1]{\mathbf{#1}}
+    % \newcommand{\my}{\textcolor{poscolor}{\ding{51}}}
+    % \newcommand{\mn}{\textcolor{negcolor}{\ding{51}}}
+    \newcommand{\my}{\ding{51}}
+    \newcommand{\mn}{\ding{55}}
+    \newcommand{\bb}[1]{\textbf{#1}}
+    \def\rot#1{\rotatebox{90}{#1}}
+    \DeclareMathOperator*{\argmax}{arg\,max}
+    \DeclareMathOperator*{\argmin}{arg\,min}
+    \DeclareMathOperator*{\minimize}{minimize}
+    \DeclareMathOperator*{\maximize}{minimize}
+    
+    \DeclareMathOperator{\sign}{sign}
+    \DeclareMathOperator{\rank}{rank}
+    \DeclareMathOperator{\trace}{tr}
+    \DeclareMathOperator{\diag}{diag}
+    \DeclareMathOperator{\diam}{diam}
+    
+    % placeholders:
+    \newcommand{\rmvd}{RobustMVD}
+    \newcommand{\mvsn}{MVSNet}
+    \newcommand{\vmn}{Vis-MVSNet}
+    \hyphenation{DistNet}
+    
+    % math placeholders naming scheme:
+        % -set of sets: mathcal
+        % -set/tuple: uppercase
+        % -matrix: uppercase, bold
+        % -vector: lowercase, bold
+        % scalar: lowercase
+        % function (e.g. neural network): lowercase (or uppercase?)
+    
+    \newcommand{\other}{source}
+    \newcommand{\Other}{Source}
+    \newcommand{\Otherview}{\Other{} view}
+    \newcommand{\otherview}{\other{} view}
+    \newcommand{\otherviews}{\otherview{}s}
+    \newcommand{\key}{key}
+    \newcommand{\Key}{Key}
+    \newcommand{\keyview}{keyview}
+    \newcommand{\keyviews}{keyviews}
+    
+    \newcommand{\sethree}{SE(3)}
+    \newcommand{\sothree}{SO(3)}
+    \newcommand{\realnumbers}{\mathbb{R}}
+    \newcommand{\projectivespace}{\mathbb{P}}
+    
+    \newcommand{\fromto}[2]{{}^{#1}_{#2}}
+    \newcommand{\coordsin}[2]{{}^{#1}{#2}}
+    \newcommand{\homog}[1]{\tilde{#1}}
+    \newcommand{\scaledshifted}[1]{\hat{#1}}
+    \newcommand{\scaledshiftedin}[2]{\coordsin{#1}{\scaledshifted{#2}}}
+    
+    \newcommand{\testsets}{\mathcal{D}}
+    \newcommand{\testset}{D}
+    \newcommand{\sample}{S}
+    \newcommand{\sampleinput}{V}
+    \newcommand{\labels}{L}
+    \newcommand{\view}{V}
+    
+    \newcommand{\inputwidth}{W}
+    \newcommand{\inputheight}{H}
+    \newcommand{\featurewidth}{w}
+    \newcommand{\featureheight}{h}
+    \newcommand{\featurechannels}{c}
+    \newcommand{\correlationsteps}{n}
+    
+    \newcommand{\image}{\mathbf{I}}
+    \newcommand{\featuremap}{\mathbf{F}}
+    \newcommand{\ctxfeaturemap}{\mathbf{\hat{F}}}
+    \newcommand{\feature}{\mathbf{f}}
+    \newcommand{\intrinsic}{\mathbf{K}}
+    \newcommand{\costvolume}{\textbf{C}}
+    % \newcommand{\encoder}{f}
+    % \newcommand{\fusion}{g}
+    % \newcommand{\decoder}{h}
+    % \newcommand{\ctx}{k}
+    \newcommand{\encoder}{f_{\theta}}
+    \newcommand{\fusion}{g_{\rho}}
+    \newcommand{\ctx}{h_{\sigma}}
+    \newcommand{\decoder}{k_{\phi}}
+    \newcommand{\uncertaintydecoder}{l_{\psi}}
+    \newcommand{\simfct}{sim}
+    
+    \newcommand{\transform}{\mathbf{T}}
+    \newcommand{\translation}{\mathbf{t}}
+    \newcommand{\rotation}{\mathbf{R}}
+    \newcommand{\transformfromto}[2]{\fromto{#1}{#2}\transform}
+    \newcommand{\translationfromto}[2]{\fromto{#1}{#2}\translation}
+    \newcommand{\rotationfromto}[2]{\fromto{#1}{#2}\rotation}
+    
+    % uncertainty:
+    \newcommand{\uncertaintymap}{\mathbf{U}}  % 2d matrix of depth values
+    
+    % depth:
+    \newcommand{\depthval}{z}
+    \newcommand{\depths}{\mathbf{\depthval}}  % vector of depth values
+    \newcommand{\depthmap}{\mathbf{Z}}  % 2d matrix of depth values
+    
+    \newcommand{\preddepthval}{\depthval}
+    \newcommand{\preddepths}{\depths}
+    \newcommand{\preddepthmap}{\depthmap}
+    \newcommand{\preddepthsscaled}{\hat{\preddepths}}  % or\mathbf{\hat{z}}
+    \newcommand{\preddepthmapscaled}{\hat{\preddepthmap}}  % or\mathbf{\hat{z}}
+    
+    \newcommand{\gtdepthval}{\depthval^\ast}
+    \newcommand{\gtdepths}{\depths^\ast}  % or \mathbf{\gtdepthval} 
+    \newcommand{\gtdepthmap}{\depthmap^\ast}
+    
+    %invdepth:
+    \newcommand{\invdepthval}{d}
+    \newcommand{\invdepths}{\mathbf{\invdepthval}}  % vector of invdepth values
+    \newcommand{\invdepthmap}{\mathbf{D}}  % 2d matrix of invdepth values
+    \newcommand{\invdepthvalin}[1]{\coordsin{#1}{\invdepthval}}
+    
+    \newcommand{\predinvdepthval}{\invdepthval}
+    \newcommand{\predinvdepths}{\invdepths}
+    \newcommand{\predinvdepthmap}{\invdepthmap}
+    
+    \newcommand{\gtinvdepthval}{\invdepthval^\ast}
+    \newcommand{\gtinvdepths}{\invdepths^\ast}  % or \mathbf{\gtinvdepthval}
+    \newcommand{\gtinvdepthmap}{\invdepthmap^\ast}
+    
+    % disparity:
+    \newcommand{\dispmap}{\bm{\Delta}}
+    \newcommand{\dispmapin}[1]{\coordsin{#1}\dispmap}
+    
+    \newcommand{\disp}{\bm{\delta}}
+    \newcommand{\homogdisp}{\homog{\bm{\Delta}}}
+    \newcommand{\dispin}[1]{\coordsin{#1}\disp}
+    \newcommand{\homogdispin}[1]{\coordsin{#1}\homogdisp}
+    
+    \newcommand{\dispval}{\delta}
+    \newcommand{\homogdispval}{\homog{\mathbf{m}}}
+    \newcommand{\dispvalin}[1]{\coordsin{#1}\dispval}
+    \newcommand{\homogdispvalin}[1]{\coordsin{#1}\homogdispval}
+    \newcommand{\gtdispval}{\dispval^\ast}
+    \newcommand{\gtdispvalin}[1]{\coordsin{#1}\gtdispval}
+    
+    \newcommand{\dispvalx}{\dispval_{\pointtwodx}}
+    \newcommand{\dispgradx}{\dispvalx'}
+    \newcommand{\homogdispvalx}{\homog{m_{\pointtwodx}}}
+    \newcommand{\dispvalxin}[1]{\coordsin{#1}\dispvalx}
+    \newcommand{\dispgradxin}[1]{\coordsin{#1}\dispgradx}
+    \newcommand{\homogdispvalxin}[1]{\coordsin{#1}\homogdispvalx}
+    
+    \newcommand{\dispvaly}{\dispval_{\pointtwody}}
+    \newcommand{\dispgrady}{\dispvaly'}
+    \newcommand{\homogdispvaly}{\homog{m_{\pointtwody}}}
+    \newcommand{\dispvalyin}[1]{\coordsin{#1}\dispvaly}
+    \newcommand{\dispgradyin}[1]{\coordsin{#1}\dispgrady}
+    \newcommand{\homogdispvalyin}[1]{\coordsin{#1}\homogdispvaly}
+    
+    \newcommand{\dispvalz}{\dispval_{\pointtwodz}}
+    \newcommand{\homogdispvalz}{\homog{m_{\pointtwodz}}}
+    \newcommand{\dispvalzin}[1]{\coordsin{#1}\dispvalz}
+    \newcommand{\homogdispvalzin}[1]{\coordsin{#1}\homogdispvalz}
+    
+    % points in 2d and 3d:
+    
+    \newcommand{\pointthreed}{\mathbf{X}}
+    \newcommand{\pointthreedin}[1]{\coordsin{#1}{\pointthreed}}
+    \newcommand{\homogpointthreed}{\homog{\pointthreed}}
+    \newcommand{\homogpointthreedin}[1]{\coordsin{#1}{\homogpointthreed}}
+    
+    \newcommand{\pointthreedx}{x}
+    \newcommand{\pointthreedxin}[1]{\coordsin{#1}{\pointthreedx}}
+    \newcommand{\pointthreedy}{y}
+    \newcommand{\pointthreedyin}[1]{\coordsin{#1}{\pointthreedy}}
+    \newcommand{\pointthreedz}{z}
+    \newcommand{\pointthreedzin}[1]{\coordsin{#1}{\pointthreedz}}
+    
+    \newcommand{\pointtwod}{\mathbf{x}}
+    \newcommand{\pointtwodin}[1]{\coordsin{#1}{\pointtwod}}
+    \newcommand{\homogpointtwod}{\homog{\pointtwod}}
+    \newcommand{\homogpointtwodin}[1]{\coordsin{#1}{\homogpointtwod}}
+    
+    \newcommand{\pointtwodx}{u}
+    \newcommand{\pointtwodxin}[1]{\coordsin{#1}{\pointtwodx}}
+    \newcommand{\homogpointtwodx}{\homog{\pointtwodx}}
+    \newcommand{\homogpointtwodxin}[1]{\coordsin{#1}{\homogpointtwodx}}
+    \newcommand{\pointtwody}{v}
+    \newcommand{\pointtwodyin}[1]{\coordsin{#1}{\pointtwody}}
+    \newcommand{\homogpointtwody}{\homog{\pointtwody}}
+    \newcommand{\homogpointtwodyin}[1]{\coordsin{#1}{\homogpointtwody}}
+    \newcommand{\pointtwodz}{k}
+    \newcommand{\homogpointtwodz}{\homog{\pointtwodz}}
+    \newcommand{\homogpointtwodzin}[1]{\coordsin{#1}{\homogpointtwodz}}
+    
+    % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \newcommand{\pointalpha}{\mathbf{\pmb{\alpha}}}
+    \newcommand{\pointalphain}[1]{\coordsin{#1}{\pointalpha}}
+    
+    \newcommand{\pointalphax}{\alpha_\pointtwodx}
+    \newcommand{\pointalphaxin}[1]{\coordsin{#1}{\pointalphax}}
+    \newcommand{\pointalphay}{\alpha_\pointtwody}
+    \newcommand{\pointalphayin}[1]{\coordsin{#1}{\pointalphay}}
+    
+    % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \newcommand{\pointtwodinf}{\pointtwod_{\infty}}
+    \newcommand{\pointtwodinfin}[1]{\coordsin{#1}{\pointtwodinf}}
+    \newcommand{\homogpointtwodinf}{\homog{\pointtwod}_{\infty}}
+    \newcommand{\homogpointtwodinfin}[1]{\coordsin{#1}{\homogpointtwodinf}}
+    
+    \newcommand{\pointtwodinfx}{\pointtwodx_{\infty}}
+    \newcommand{\pointtwodinfxin}[1]{\coordsin{#1}{\pointtwodinfx}}
+    \newcommand{\homogpointtwodinfx}{\homog{\pointtwodx}_{\infty}}
+    \newcommand{\homogpointtwodinfxin}[1]{\coordsin{#1}{\homogpointtwodinfx}}
+    
+    \newcommand{\pointtwodinfy}{\pointtwody_{\infty}}
+    \newcommand{\pointtwodinfyin}[1]{\coordsin{#1}{\pointtwodinfy}}
+    \newcommand{\homogpointtwodinfy}{\homog{\pointtwody}_{\infty}}
+    \newcommand{\homogpointtwodinfyin}[1]{\coordsin{#1}{\homogpointtwodinfy}}
+    
+    \newcommand{\pointtwodinfz}{\pointtwodz_{\infty}}
+    \newcommand{\pointtwodinfzin}[1]{\coordsin{#1}{\pointtwodinfz}}
+    \newcommand{\homogpointtwodinfz}{\homog{\pointtwodz}_{\infty}}
+    \newcommand{\homogpointtwodinfzin}[1]{\coordsin{#1}{\homogpointtwodinfz}}
+    
+    % shifts and scales:
+    \newcommand{\scalingfactor}{\alpha}
+    \newcommand{\shift}{b}
+    \newcommand{\scalingfactorin}[1]{\coordsin{#1}{\scalingfactor}}
+    \newcommand{\shiftin}[1]{\coordsin{#1}{\shift}}
+    \newcommand{\scalemap}{\mathbf{A}}
+    \newcommand{\shiftmap}{\mathbf{B}}
+    
+    % metrics:
+    \newcommand{\ausename}{Area Under Sparsification Error Curve}
+    \newcommand{\ause}{\textrm{AUSE}}
+    \newcommand{\absrelname}{Absolute Relative Error}
+    % \newcommand{\absrel}{AbsRel}
+    \newcommand{\absrel}{\textrm{rel}}
+    \newcommand{\sqrel}{SqRel}
+    \newcommand{\sqrelsign}{SqRel}
+    \newcommand{\rmse}{RMSE}
+    \newcommand{\rmsesign}{RMSE}
+    \newcommand{\rmselog}{RMSElog}
+    \newcommand{\rmselogsign}{RMSElog}
+    \newcommand{\threshIname}{Inlier Ratio}% with a threshold of $1.25$}
+    % \newcommand{\threshI}{\delta_{<1.25}}
+    \newcommand{\threshI}{\tau}
+    \newcommand{\threshII}{$\delta<1.25^2$}
+    \newcommand{\threshIIsign}{$\delta<{1.25^2}$}
+    \newcommand{\threshIII}{$\delta<1.25^3$}
+    \newcommand{\threshIIIsign}{$\delta<{1.25^3}$}
+    
+    % datasets:
+    \newcommand{\kitti}{KITTI}
+    \newcommand{\kittishort}{KITTI}
+    \newcommand{\megadepth}{MegaDepth}
+    \newcommand{\megadepthshort}{MD}
+    \newcommand{\redweb}{ReDWeb}
+    \newcommand{\redwebshort}{RW}
+    \newcommand{\movies}{3D Movies}
+    \newcommand{\moviesshort}{MV}
+    \newcommand{\sintel}{Sintel}
+    \newcommand{\sintelshort}{Sintel}
+    \newcommand{\diw}{Depth in the Wild}
+    \newcommand{\diwshort}{DIW}
+    \newcommand{\diml}{DIML Indoor}
+    \newcommand{\dimlshort}{DL}
+    \newcommand{\wsvd}{Web Stereo Video Dataset}
+    \newcommand{\wsvdshort}{WSVD}
+    \newcommand{\ethd}{ETH3D}
+    \newcommand{\ethdshort}{ETH3D}
+    \newcommand{\nyu}{NYUDv2}
+    \newcommand{\nyushort}{NYU}
+    \newcommand{\tumrgbd}{TUM-RGBD}
+    \newcommand{\tumrgbdshort}{TUM}
+    \newcommand{\scannet}{ScanNet}
+    \newcommand{\scannetshort}{ScanNet}
+    \newcommand{\flyingthings}{FlyingThings3D}
+    \newcommand{\flyingthingsshort}{FT3D}
+    \newcommand{\staticthings}{StaticThings3D}
+    \newcommand{\staticthingsshort}{ST3D}
+    \newcommand{\realthings}{RealThings}
+    \newcommand{\realthingsshort}{RT}
+    \newcommand{\sun}{SUN3D}
+    \newcommand{\sunshort}{SUN}
+    \newcommand{\dtu}{DTU}
+    \newcommand{\dtushort}{DTU}
+    \newcommand{\tanksandtemples}{Tanks and Temples}
+    \newcommand{\tanksandtemplesshort}{T\&T}
+    \newcommand{\blendedmvs}{BlendedMVS}
+    \newcommand{\blendedmvsshort}{BMVS}
+    
+    \newcommand{\benchmarkname}{Robust MVD Benchmark}
+    \newcommand{\baselinename}{Robust MVD Baseline}
+    \newcommand{\framework}{Robust Multi-View Depth}
+    \newcommand{\mv}{multi-view}
+    \newcommand{\mvs}{Multi-View Stereo}
+    \newcommand{\dispn}{DispNet}
+    % results table:
+    % \newcommand{\trainedsimto}[1]{\textcolor{negcolor}{#1}}
+    \newcommand{\trainedsimto}[1]{(#1)}
+    \newcommand{\bestresult}[1]{\textbf{#1}}
+    \newcommand{\usesoutputscaling}[1]{\textcolor{outputscalingcolor}{#1}}
+    \newcommand{\worsethanmedian}[1]{\textcolor{negcolor}{#1}}
+    
+    
+    \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+    \newcommand{\emphbf}[1]{\emph{\textbf{#1}\xspace}}
+    \newcommand{\mypara}[1]{\smallskip\noindent\emphbf{#1.}\xspace}
+    \newcommand\inv[1]{#1\raisebox{1.15ex}{$\scriptscriptstyle-\!1$}}
+
+    \newcommand{\etal}{\textit{et al.}}
+    \newcommand{\bms}{\textit{ BlendedMVS-MVSNet variant}}
+    \newcommand{\brs}{\textit{ BlendedMVS-RMVD variant}}
+    \newcommand{\gwc}{Groupwise correlation}
+
+    \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}

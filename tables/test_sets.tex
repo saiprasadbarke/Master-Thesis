@@ -1,0 +1,116 @@
+\begin{table}[ht!]
+% \begin{table}[t]
+\footnotesize
+\centering
+\def\arraystretch{1.5}
+\begin{tabular}{|l||c|c|c|c|c|}
+
+\hline
+\rowcolor{bgcolor}
+    \textbf{Test set}
+    & \textbf{\kitti{}~\cite{Geiger2013, Uhrig2017}}
+    & \textbf{\scannet{}~\cite{Dai2017}}
+    & \textbf{\ethd{}~\cite{Schoeps2017}}
+    & \textbf{\dtu{}~\cite{Jensen2014, Aanaes2016}}
+    & \textbf{\tanksandtemplesshort{}~\cite{Knapitsch2017}}
+    \\
+    
+\hline
+\hline
+
+    \textbf{Domain} 
+    & driving
+    & indoor
+    & in- \& outdoor
+    & tabletop
+    & in- \& outdoor
+    \\
+\hline
+    \textbf{Setting}
+    & DFV %depth-from-video
+    & DFV %depth-from-video
+    & MVS
+    & MVS
+    & MVS
+    \\
+\hline
+    \textbf{Cam Motion}
+    & small
+    & small
+    & large
+    & small
+    & small
+    \\
+
+\hline
+    \textbf{Scene Scale}
+    & \SI{2}-\SI{85}{\metre} %{\metre}-
+    & \SI{0.2}-\SI{9}{\metre} %{\metre}-
+    & \SI{0.3}-\SI{60}{\metre} %{\metre}-
+    & \SI{0.4}-\SI{1.2}{\metre} %{\metre}-
+    & \SI{1.1}-\SI{42}{\metre} %{\metre}-
+    \\
+    
+\hline
+\hline
+    \textbf{Split} 
+    & test split from
+    & test split from
+    & orig. train 
+    & val. split from 
+    & orig. train 
+    \\  
+    
+    \textbf{based on}  
+    & Eigen~\etal~\cite{Eigen2014}
+    & Tang and Tan~\cite{Tang2018}
+    &   split
+    & Yao \etal~\cite{Yao2018}
+    &   split
+    \\ 
+    
+    % & Eigen~\etal~\cite{Eigen2014}
+    % & Tang and Tan~\cite{Tang2018}
+    % & 
+    % & Yao~\etal~\cite{Yao2018}
+    % &
+    % \\
+    
+\hline
+\hline
+    \textbf{Full Res} 
+    & 1226x370
+    & 640x480
+    & 6048x4032
+    & 1600x1200
+    & 1962x1092
+    \\
+
+    % input resolution 
+    % & 1280x384
+    % & 640x448
+    % & 1152x768
+    % & 1216x896
+    % & 1280x704
+    % \\
+\hline
+    \textbf{\# Samples}
+    & 93
+    & 200
+    & 104
+    & 110
+    & 69
+    \\
+
+    
+
+	
+\hline
+\end{tabular}
+
+\caption[Test sets of the \benchmarkname]{\textbf{Test sets of the \benchmarkname} are based on \kitti{}, \scannet{}, \ethd{}, \dtu, and \tanksandtemples{} (\tanksandtemplesshort{}). These datasets are common for depth-from-video (DFV) or {\mvs} (MVS) and cover different domains and scene scales. This table is adapted from \cite{schroeppel2022benchmark}
+\label{tab:test-sets}
+}
+\end{table}
+% \end{table}
+

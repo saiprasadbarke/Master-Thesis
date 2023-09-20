@@ -1,0 +1,68 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[htbp]
+\scriptsize
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\def\arraystretch{1.45}
+\begin{tabular}{|l|c|c|c|c|c|c|c|}
+\hline
+\rowcolor{bgcolor}
+\textbf{Operation}                     & \textbf{Kernel} & \textbf{Stride} & \textbf{Ch I/O} & \textbf{InpRes} & \textbf{OutRes} & \textbf{Input}     & \textbf{Output} \\ \hline
+\hline
+\rowcolor{bgcolor}
+\textbf{(1) Siamese encoder}           &                 &                 &                 &                 &                 &                    &                 \\ \hline
+for each view $i = 0, .., k:$            &                 &                 &                 &                 &                 &                    &                 \\ \hline
+\hspace{0.75cm}convolution + LeakyReLU                            & 7×7             & 2               & 3/64            & 768×384         & 384×192         & Image $I_i$           & $conv1_i$          \\ \hline
+\hspace{0.75cm}convolution + LeakyReLU                            & 5×5             & 2               & 64/128          & 384×192         & 192×96          & $conv1_i$             & $conv2_i$          \\ \hline
+\hspace{0.75cm}convolution + LeakyReLU                           & 3×3             & 2               & 128/256         & 192×96          & 96×48           & $conv2_i$             & $conv3a_i$         \\ \hline
+\hline
+\rowcolor{bgcolor}
+\textbf{(2) Context encoder}           &                 &                 &                 &                 &                 &                    &                 \\ \hline
+convolution                            & 1×1             & 1               & 256/32          & 96×48           & 96×48           & $conv3a_0$            & $ctx$             \\ \hline
+\hline
+\rowcolor{bgcolor}
+\textbf{(3) Plane sweep correlation}   &                 &                 &                 &                 &                 &                    &                 \\ \hline
+for each source view $i = 1, .., k:$     &                 &                 &                 &                 &                 &                    &                 \\ \hline
+\hspace{1cm}correlate view $0$ and $i$                 & -               & -               & 256/D = 256     & 96×48           & 96×48           & $conv3a_0$ , $conv3a_i$  & cost-volume $C_i$   \\ \hline
+\hline
+\rowcolor{bgcolor}
+\textbf{4) Cost-volume fusion}          &                 &                 &                 &                 &                 &                    &                 \\ \hline
+\textbf{4.1} for each source view $i = 1, .., k:$ &                 &                 &                 &                 &                 &                    &                 \\ \hline
+\hspace{1cm}convolution                            & 3×3             & 1               & 256/128         & 96×48           & 96×48           & $C_i$                 & $convf1_i$         \\ \hline
+\hspace{1cm}convolution                            & 3×3             & 1               & 128/1           & 96×48           & 96×48           & $convf1_i$            & weight $w_i$       \\ \hline
+\textbf{4.2} fuse to cost-volume $\textbf{C}$               &                 &                 &                 &                 &                 &                    &                 \\ \hline
+$\textbf{C} = (\Sigma exp(w_i) . C_i )/(\Sigma exp(w_i))$      & -               & -               & 256/256         & 96×48           & 96×48           & $C_i$ , $w_i$            & $\textbf{C}$               \\ \hline
+\hline
+\rowcolor{bgcolor}
+\textbf{(5) Cost-volume Regularization} &                 &                 &                 &                 &                 &                    &                 \\ \hline
+convolution + LeakyReLU                            & 3×3             & 1               & 288/256         & 96×48           & 96×48           & $\textbf{C}+ctx$              & $conv3b$          \\ \hline
+convolution + LeakyReLU                            & 3×3             & 2               & 256/512         & 96×48           & 48×24           & $conv3b$             & $conv4a$          \\ \hline
+convolution + LeakyReLU                            & 3×3             & 1               & 512/512         & 48×24           & 48×24           & $conv4a$             & $conv4b$          \\ \hline
+convolution + LeakyReLU                            & 3×3             & 2               & 512/512         & 48×24           & 24×12           & $conv4b$             & $conv5a$          \\ \hline
+convolution + LeakyReLU                            & 3×3             & 1               & 512/512         & 24×12           & 24×12           & $conv5a$             & $conv5b$          \\ \hline
+convolution + LeakyReLU                            & 3×3             & 2               & 512/1024        & 24×12           & 12×6            & $conv5b$             & $conv6a$          \\ \hline
+convolution + LeakyReLU                            & 3×3             & 1               & 1024/1024       & 12×6            & 12×6            & $conv6a$             & $conv6b$          \\ \hline
+convolution + ReLUAndSigmoid                           & 3×3             & 1               & 1024/2          & 12×6            & 12×6            & $conv6b$             & $pred6$           \\ \hline
+transposed convolution + LeakyReLU                 & 4×4             & 2               & 1024/512        & 12×6            & 24×12           & $conv6b$             & $upconv5$         \\ \hline
+convolution + LeakyReLU                           & 3×3             & 1               & 1025/512        & 24×12           & 24×12           & $upconv5+pr6+conv5b$ & $iconv5$          \\ \hline
+convolution + ReLUAndSigmoid                           & 3×3             & 1               & 512/2           & 24×12           & 24×12           & $iconv5$             & $pred5$           \\ \hline
+transposed convolution                 & 4×4             & 2               & 512/256         & 24×12           & 48×24           & $iconv5$             & $upconv4$         \\ \hline
+convolution + LeakyReLU                           & 3×3             & 1               & 769/256         & 48×24           & 48×24           & $upconv4+pr5+conv4b$ & $iconv4$          \\ \hline
+convolution + ReLUAndSigmoid                           & 3×3             & 1               & 256/2           & 48×24           & 48×24           & $iconv4$             & $pred4$           \\ \hline
+transposed convolution + LeakyReLU                & 4×4             & 2               & 256/128         & 48×24           & 96×48           & $iconv4$             & $upconv3$         \\ \hline
+convolution + LeakyReLU                            & 3×3             & 1               & 385/128         & 96×48           & 96×48           & $upconv3+pr4+conv3b$ & $iconv3$          \\ \hline
+convolution + ReLUAndSigmoid                           & 3×3             & 1               & 128/2           & 96×48           & 96×48           & $iconv3$             & $pred3$           \\ \hline
+transposed convolution                 & 4×4             & 2               & 128/64          & 96×48           & 192×96          & $iconv3$             & $upconv2$         \\ \hline
+convolution + LeakyReLU                           & 3×3             & 1               & 193/64          & 192×96          & 192×96          & $upconv2+pr3+conv2_0$ & $iconv2$          \\ \hline
+convolution + ReLUAndSigmoid                           & 3×3             & 1               & 64/2            & 192×96          & 192×96          & $iconv2$             & $pred2$           \\ \hline
+transposed convolution                 & 4×4             & 2               & 64/32           & 192×96          & 384×192         & $iconv2$             & $upconv1$         \\ \hline
+convolution + LeakyReLU                           & 3×3             & 1               & 97/32           & 384×192         & 384×192         & $upconv1+pr2+conv1_0$ & $iconv1$          \\ \hline
+convolution + ReLUAndSigmoid                           & 3×3             & 1               & 32/2            & 384×192         & 384×192         & $iconv1$             & $pred1$           \\ \hline
+
+\end{tabular}
+\end{adjustbox}
+\caption[Architecture of the Robust MVD Baseline model.]{Architecture of the Robust MVD Baseline model.
+ The notation is the same as in the DispNet paper \cite{Mayer2016}. The model takes views $V = (V_0 , \dots , V_k )$ as inputs where $V_0$ is the key view with an image $I_0$ and $V_{1,\dots,k}$ are source views with images $I_{i,\dots,k}$ . $D$ is the number of candidate inverse depth values in the plane sweep correlation layer (here: $D=256$). The resolutions are indicated for training settings and differ for test inputs. This table is adapted from \cite{schroeppel2022benchmark}.}
+\label{tab:arch-rmvd}
+\end{table}

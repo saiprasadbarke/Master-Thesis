@@ -1,0 +1,111 @@
+%\begin{table*}[t!]
+\begin{table}[ht!]
+\footnotesize
+\centering
+%\resizebox{\columnwidth}{!}{ % scale to columnwidth
+%\resizebox*{\textwidth}{!}{
+\setlength{\tabcolsep}{1mm}
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{|l
+|c >{\columncolor{bgcolor}}c
+|c >{\columncolor{bgcolor}}c
+|c >{\columncolor{bgcolor}}c
+|c >{\columncolor{bgcolor}}c
+|c >{\columncolor{bgcolor}}c
+|c >{\columncolor{bgcolor}}c 
+|}
+\rowcolor{bgcolor}
+\hline
+    \textbf{Approach}
+    & \multicolumn{2}{c|}{\textbf{\kittishort{}}}
+    & \multicolumn{2}{c|}{\textbf{\dtushort{}{}}}
+    & \multicolumn{2}{c|}{\textbf{\scannetshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\tanksandtemplesshort{}}}
+    & \multicolumn{2}{c|}{\textbf{\ethdshort{}}}
+    & \multicolumn{2}{c|}{\textbf{Average}}
+    \\
+\rowcolor{bgcolor}
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    & $\absrel\downarrow$ & $\threshI\uparrow$
+    \\
+    \hline
+    \hline
+\rowcolor{bgcolor}
+    \textbf{a) MVSNet Base}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+    \\
+\hline
+
+	$V=2, D=128$ \(\star\)
+	& 11.44
+	& 40.50
+	& 2.84
+	& 82.24
+	& 9.80
+	& 32.31
+	& 8.92
+	& 78.97
+	& 25.28
+	& 39.87
+	& 11.65
+	& 54.78
+	\\
+    \hline
+    \hline
+\rowcolor{bgcolor}
+    \textbf{b) RobustMVD Base}
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+	& 
+    \\
+\hline
+	$V=2 , B=1$ \(\star\)
+	& 8.21
+	& 35.51
+	& 4.24
+	& 71.04
+	& 9.06
+	& 31.07
+	& 11.34
+	& 60.78
+	& 11.13
+	& 36.58
+	& 8.80
+	& 47.00
+	\\ 
+	
+
+	
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption[Baseline Measurements with smaller evaluation inputs]{\textbf{Baseline Measurements with smaller evaluation inputs}.
+Both baseline models are evaluated on smaller evaluation inputs.
+\label{tab:baseline_3_4}
+}
+\end{table}
+%\end{table*}
